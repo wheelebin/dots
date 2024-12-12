@@ -19,6 +19,7 @@ if [[ $action == "dev" ]]; then
         git clone --bare git@github.com:wheelebin/dots.git $HOME/.cfg &&
         git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
         bash .env-tools/main.sh; bash -l'
+
     ssh ${vm_user}@${vm_name}@orb -t "$cmd"
 elif [[ $action == "ssh" ]]; then
     ssh "${vm_user}@${vm_name}@orb"
