@@ -15,10 +15,10 @@ if [[ $action == "dev" ]]; then
     
     cmd='sudo apt install -y git &&
         cd $HOME &&
-        git clone git@github.com:wheelebin/dots.git &&
         alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME" &&
         echo ".cfg" >> .gitignore &&
         git clone --bare git@github.com:wheelebin/dots.git $HOME/.cfg &&
+        config checkout
         /bin/bash ./env-tools/main.sh; bash -l'
     ssh ${vm_user}@${vm_name}@orb -t "$cmd"
 elif [[ $action == "ssh" ]]; then
