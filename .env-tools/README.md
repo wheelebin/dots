@@ -3,8 +3,4 @@
 
 # Run
 
-- export SUDO="sudo " && main.sh
-
-- docker build -t dev-tools:latest . && docker run --rm --name dev-tools dev-tools:lates
-- docker exec -it dev-toolzs zs
-- docker kill dev-tools
+setup readme based on dev.sh & main as well as https://www.atlassian.com/git/tutorials/dotfiles 
