@@ -1,1 +1,2 @@
-echo "IM IN HERE"
+source ./a.sh
+echo "IM IN HERE $someVar"
