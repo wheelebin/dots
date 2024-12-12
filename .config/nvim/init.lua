@@ -832,6 +832,7 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         ts_ls = {},
+        bashls = {},
         --
 
         phpactor = {},
@@ -870,6 +871,7 @@ require('lazy').setup({
 
       require('mason-lspconfig').setup {
         ensure_installed = {
+          'bashls',
           ts_ls = {},
         },
         handlers = {
