@@ -13,14 +13,20 @@ if [[ $action == "dev" ]]; then
     orbctl delete ${vm_name}
     orbctl create -u ${vm_user} -p -a arm64 ubuntu ${vm_name}
     
-    cmd="sudo apt install -y git && git clone git@github.com:wheelebin/env.git && /bin/bash ./env/main.sh; bash -l"
+    cmd='sudo apt install -y git &&
+        cd $HOME &&
+        git clone git@github.com:wheelebin/dots.git &&
+        alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME" &&
+        echo ".cfg" >> .gitignore &&
+        git clone --bare git@github.com:wheelebin/dots.git $HOME/.cfg &&
+        /bin/bash ./env-tools/main.sh; bash -l'
     ssh ${vm_user}@${vm_name}@orb -t "$cmd"
 elif [[ $action == "ssh" ]]; then
     ssh "${vm_user}@${vm_name}@orb"
 elif [[ $action == "rm" ]]; then
     orbctl delete ${vm_name}
 elif [[ $action == "push" ]]; then
-    git add -A
-    git commit -m "random deb push"
-    git push
+    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME add $HOME/.env-tools
+    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME commit -m "env-tools update push"
+    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME push
 fi
