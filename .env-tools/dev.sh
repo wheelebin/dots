@@ -17,15 +17,15 @@ if [[ $action == "dev" ]]; then
         cd $HOME &&
         echo ".cfg" >> .gitignore &&
         git clone --bare git@github.com:wheelebin/dots.git $HOME/.cfg &&
-        /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
-        /bin/bash ./env-tools/main.sh; bash -l'
+        git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
+        bash .env-tools/main.sh; bash -l'
     ssh ${vm_user}@${vm_name}@orb -t "$cmd"
 elif [[ $action == "ssh" ]]; then
     ssh "${vm_user}@${vm_name}@orb"
 elif [[ $action == "rm" ]]; then
     orbctl delete ${vm_name}
 elif [[ $action == "push" ]]; then
-    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME add $HOME/.env-tools
-    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME commit -m "env-tools update push"
-    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME push
+    git --git-dir=$HOME/.cfg/ --work-tree=$HOME add $HOME/.env-tools
+    git --git-dir=$HOME/.cfg/ --work-tree=$HOME commit -m "env-tools update push"
+    git --git-dir=$HOME/.cfg/ --work-tree=$HOME push
 fi
