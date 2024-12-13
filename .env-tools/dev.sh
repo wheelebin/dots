@@ -11,7 +11,7 @@ echo "[ENV-TOOLS] Running: $action (vm_name: $vm_name, vm_user: $vm_user)"
 
 if [[ $action == "dev" ]]; then
     orbctl delete ${vm_name}
-    orbctl create -u ${vm_user} -p -a arm64 ubuntu ${vm_name}
+    orbctl create -u ${vm_user} -p -a arm64 debian ${vm_name}
     
     cmd='sudo apt install -y git &&
         cd $HOME &&

@@ -1,17 +1,16 @@
 #!/bin/bash
-source ../utils.sh
 
 version="v0.10.2"
 if [ ! -z $NVIM_VERSION ]; then
     version="$NVIM_VERSION"
 fi
 
-if [[ -z "$(which nvim)" ]]; then
-    log "neovim already installed"
+if [[ -n "$(which nvim)" ]]; then
+    echo "neovim already installed"
     exit
 fi
 
-log "neovim version: \"$version\""
+echo "neovim version: \"$version\""
 
 if [ ! -d $HOME/neovim ]; then
     git clone https://github.com/neovim/neovim.git $HOME/neovim

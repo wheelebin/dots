@@ -4,8 +4,8 @@ setup_dir=`find $script_dir/setup -mindepth 1 -maxdepth 1 -executable`
 source $script_dir/utils.sh 
 
 for s in $setup_dir; do
-    log "running setup script: $s"
+    echo "running setup script: $s"
     $s
 done
 
-log "setup done!"
+echo "setup done!"
