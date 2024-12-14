@@ -1,5 +1,5 @@
 action=${1}
-vm_name=${2:-dots}
+vm_name=${2:-dotsDev}
 vm_user=${3:-someuser}
 
 if [[ -z $action ]]; then
@@ -9,7 +9,7 @@ fi
 
 echo "[ENV-TOOLS] Running: $action (vm_name: $vm_name, vm_user: $vm_user)"
 
-if [[ $action == "dev" ]]; then
+function dev() {
     orbctl delete ${vm_name}
     orbctl create -u ${vm_user} -p -a arm64 debian ${vm_name}
     
@@ -21,12 +21,23 @@ if [[ $action == "dev" ]]; then
         bash .env-tools/main.sh setup; bash -l'
 
     ssh ${vm_user}@${vm_name}@orb -t "$cmd"
+}
+
+function push() {
+    git --git-dir=$HOME/.cfg/ --work-tree=$HOME add $HOME/.env-tools
+    git --git-dir=$HOME/.cfg/ --work-tree=$HOME commit -m "env-tools update push"
+    git --git-dir=$HOME/.cfg/ --work-tree=$HOME push
+}
+
+if [[ $action == "start" ]]; then
+    dev
+elif [[ $action == "push" ]]; then
+    push
+elif [[ $action == "dev" ]]; then
+    push
+    dev
 elif [[ $action == "ssh" ]]; then
     ssh "${vm_user}@${vm_name}@orb"
 elif [[ $action == "rm" ]]; then
     orbctl delete ${vm_name}
-elif [[ $action == "push" ]]; then
-    git --git-dir=$HOME/.cfg/ --work-tree=$HOME add $HOME/.env-tools
-    git --git-dir=$HOME/.cfg/ --work-tree=$HOME commit -m "env-tools update push"
-    git --git-dir=$HOME/.cfg/ --work-tree=$HOME push
 fi
