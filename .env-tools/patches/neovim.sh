@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exit;
+
 version="v0.10.2"
 if [ ! -z $NVIM_VERSION ]; then
     version="$NVIM_VERSION"

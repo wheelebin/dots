@@ -18,7 +18,7 @@ if [[ $action == "dev" ]]; then
         echo ".cfg" >> .gitignore &&
         git clone --bare git@github.com:wheelebin/dots.git $HOME/.cfg &&
         git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
-        bash .env-tools/main.sh; bash -l'
+        bash .env-tools/main.sh setup; bash -l'
 
     ssh ${vm_user}@${vm_name}@orb -t "$cmd"
 elif [[ $action == "ssh" ]]; then

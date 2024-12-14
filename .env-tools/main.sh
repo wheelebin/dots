@@ -1,11 +1,25 @@
 #!/bin/bash
+
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-setup_dir=`find $script_dir/setup -mindepth 1 -maxdepth 1 -executable`
-source $script_dir/utils.sh 
+patches_dir=`find $script_dir/patches -mindepth 1 -maxdepth 1 -executable`
+actionArg=${1}
+actionOptsArg=${2}
 
-for s in $setup_dir; do
-    echo "running setup script: $s"
+if [[ $actionArg == "setup" ]]; then
+    for s in $patches_dir; do
+        echo "running patch: $s"
+        $s
+    done
+elif [[ $actionArg == "apply" ]]; then
+    if [[ ! -f "${patches_dir}/${actionOptsArg}" ]]; then
+        echo "patch not found: $actionOptsArg"
+        exit
+    fi
+
+    echo "running patch: $s"
     $s
-done
+else
+    echo "Unkown action ${actionArg}"
+fi
 
-echo "setup done!"
+echo "Done!"
