@@ -2,5 +2,5 @@
 	email = jln.allen95@gmail.com
 	name = wheelebin
 
-[includeIf "gitdir:/home/wheelebin/ninetofive/**"]
-  path = ~/.gitconfig-ninetofive
+[includeIf "gitdir:/home/wheelebin/wrk/**"]
+  path = ~/.gitconfig-wrk
