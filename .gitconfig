@@ -1,0 +1,6 @@
+[user]
+	email = jln.allen95@gmail.com
+	name = wheelebin
+
+[includeIf "gitdir:/home/wheelebin/ninetofive/**"]
+  path = ~/.gitconfig-ninetofive
