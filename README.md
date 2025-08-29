@@ -1,52 +1,103 @@
-# Wheelebin DOTS
+# Wheelebin Dots
 
-## Overview
-- Version control for files is based on [Bare Git Repo Setup](https://www.atlassian.com/git/tutorials/dotfiles)
-- .config contains most configuration files
-- .env-tools contains bash scripts for installing needed software
+My personal dotfiles repo.
 
-## Get started
-### Init on new computer
+## Architecture
 
-#### Add bellow alias to .bashrc or .zshrc
+This setup uses a [bare Git repository approach](https://www.atlassian.com/git/tutorials/dotfiles) for version control.
+
+**Directory Structure:**
+- `.config/` - Configuration files
+- `.env-tools/` - Bash scripts for software installation and environment setup
+
+## Installation
+
+### Prerequisites
+- Git
+- SSH access to Github
+
+### Setup on New Machine
+
+1. **Add the configuration alias to your shell profile:**
+   
+   Add this to your `.bashrc` or `.zshrc`:
+   ```bash
+   alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+   ```
+
+2. **Prevent the bare repository folder from being tracked:**
+   ```bash
+   echo ".cfg" >> .gitignore
+   ```
+
+3. **Clone the dotfiles repository as a bare repository:**
+   ```bash
+   git clone --bare git@github.com:wheelebin/dots.git $HOME/.cfg
+   ```
+
+4. **Define the alias for the current shell session:**
+   ```bash
+   alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+   ```
+
+5. **Checkout the configuration files:**
+   ```bash
+   config checkout
+   ```
+
+6. **Run the setup script to install software deps:**
+   ```bash
+   ./.env-tools/main.sh setup
+   ```
+
+## Usage
+
+After installation, use the `config` command instead of `git` to manage your dotfiles:
+
 ```bash
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+# Check status
+config status
+
+# Add changes
+config add .vimrc
+
+# Commit changes
+config commit -m "Update vim configuration"
+
+# Push changes
+config push
 ```
 
-#### Make sure bare repo folder is ignored
+## Git User Management
+
+### Default Configuration
+The repository is configured to use the `wheelebin` user by default for all Git operations.
+
+### Work Configuration
+To use different Git credentials for work-related repositories:
+
+1. **Create a work-specific Git configuration file:**
+   ```bash
+   # Create ~/.gitconfig-wrk (do not commit this file)
+   cat > ~/.gitconfig-wrk << EOF
+   [user]
+       email = work.email@company.com
+       name = Work Name
+   EOF
+   ```
+
+2. **Organize work projects:**
+   
+   Place all work-related repositories in the `~/wrk/` directory. The Git configuration will automatically use your work credentials for any repository within this path.
+
+### Configuration Logic
+- **Personal projects**: Use default `wheelebin` credentials
+- **Work projects** (in `~/wrk/`): Use credentials from `~/.gitconfig-wrk`
+
+## Notes
+
+### Hiding Untracked Files
+To avoid seeing untracked files in your home directory:
 ```bash
-echo ".cfg" >> .gitignore
+config config --local status.showUntrackedFiles no
 ```
-
-#### Clone dot files into bare repo folder
-```bash
-git clone --bare git@github.com:wheelebin/dots.git $HOME/.cfg
-```
-
-#### Define alias in current shell scope
-```bash
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-```
-
-#### Checkout content from bare repo to $HOME
-```bash
-config checkout
-```
-
-#### Run setup script
-```bash
-./.env-tools/main.sh setup
-```
-
-## Managing personal & work git users
-- By default wheelebin user will be used as the git user. 
-- If a different git user is needed for work add a ~/.gitconfig-wrk with the bellow config. (Do not commit this file)
-	- Now, any folders placed in ~/wrk/** will use the work git user
-
-```
-[user]
-	email = [WORK_EMAIL]
-	name = [WORK_NAME]
-```
-
-
