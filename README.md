@@ -18,6 +18,13 @@ This setup uses a [bare Git repository approach](https://www.atlassian.com/git/t
 
 ### Setup on New Machine
 
+#### Init steps (Auto)
+- . **Run all of the init steps via init.sh script**
+   ```bash
+   curl https://raw.githubusercontent.com/wheelebin/dots/refs/heads/master/.env-tools/init.sh | /bin/bash
+   ```
+
+#### Init steps (Manual)
 1. **Add the configuration alias to your shell profile:**
    
    Add this to your `.bashrc` or `.zshrc`:
@@ -45,7 +52,9 @@ This setup uses a [bare Git repository approach](https://www.atlassian.com/git/t
    config checkout
    ```
 
-6. **Run the setup script to install software deps:**
+#### Install software deps
+
+- **Run the setup script to install software deps:**
    ```bash
    ./.env-tools/main.sh setup
    ```
