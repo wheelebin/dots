@@ -2,7 +2,7 @@
 
 nvimDir="${HOME}/.local/env-tools/nvim"
 
-version="v0.11.0"
+version="v0.12.0"
 if [ ! -z $NVIM_VERSION ]; then
     version="$NVIM_VERSION"
 fi
