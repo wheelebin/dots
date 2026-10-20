@@ -1,0 +1,6 @@
+onboarding = false
+
+[keys]
+prefix = "ctrl+a"
+split_horizontal = "prefix+n"
+split_vertical = "prefix+m"
